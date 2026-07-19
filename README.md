@@ -66,6 +66,26 @@ Alınan kararlar: Sanal dolap için veritabanı şemasının (kullanıcı, kıya
 
 # Sprint 2
 
+- **Sprint Notları**: Bu sprintte StyleMind AI'nin temel yapısının geliştirilmesine ve fotoğraftan otomatik kıyafet etiketleme özelliğinin uygulanmasına odaklanılmıştır. Sprint 1'de sayılan prototiplerin ileri seviyelere taşınması, yapay zeka modelinin (Swin Transformer / ResNet) gerçek projeye entegre edilmesi ve kombin önerisi algoritmasının temel mantığının kodlanması hedeflenmiştir. Takım, belirlenen görev dağılımında etkin bir şekilde ilerlemiş ve backend ile frontend arasında iletişim düzeni kurulmuştur.
+
+- **Sprint içinde tamamlanması tahmin edilen puan**: Sprint 1'de alınan geri bildirimlere göre puan dağılımı yeniden düzenlenmiştir. Backlog'un kalan yarısı Sprint 2 ve Sprint 3'e dengeli şekilde paylaştırılmıştır. Sprint 2 için tahmin edilen puanlar, ekip kapasitesi ve önceki sprint'teki çıktılar dikkate alınarak belirlenmiştir.
+
+- **Puan Tamamlama Mantığı**: Backlog'daki story'ler önceliğe göre yeniden sıralanmıştır. Bağımlılıkları olan task'ler öncelikli olarak ele alınmıştır. Story'ler detaylı şekilde task'lere bölünmüş, her task için tahmin puanları tekrardan değerlendirilmiştir.
+
+  AI model entegrasyonuna yönelik task'ler daha ayrıntılı şekilde planlanmıştır.
+
+- **Daily Scrum**: Slack üzerinden yürütülen Daily Scrum'lar düzenli olarak devam etmiştir. Takım üyeleri günlük kütüphaneler, engeller ve çıktıları paylaşmışlardır.
+
+- **Sprint Review**:
+Alınan kararlar: Fotoğraftan otomatik kıyafet etiketleme özelliği (kategori, ana renk, mevsim tespiti) başarıyla uygulanmıştır. Doğal dil komutuyla bağlama özel kombin üretimi (AI Stilist) özelliğinin temel altyapısı kurulmuştur. Gerçek zamanlı hava durumuna göre kombin önerisi özelliği tasarlanmış ve kısmi olarak uygulanmıştır. Yıkama, hijyen ve son giyilme tarihi takibi sistemi veritabanında tanımlanmıştır. Kişisel dolap analitiği için gerekli veri toplama mekanizmaları hazırlanmıştır. Sprint Review katılımcıları: Oğuzhan Ünal, Enes Buğra Damar, İrem Damla Dural, Atakan Tatar, Merve Yıldız.
+
+- **Sprint Retrospective:**
+  - AI model entegrasyonuyla ilgili teknik zorluklar dokümante edilmiş ve çözüm yolları belirlenmiştir.
+  - Doğal dil işleme (NLP) kütüphanelerinin performansı üzerine çalışılmaya devam edilecektir.
+  - Frontend ve backend arasındaki API tasarımında iyileştirmeler yapılmalıdır.
+  - Gerçek zamanlı hava durumu API entegrasyonu test edilmelidir.
+  - Takım üyeleri arasında teknik bilgi paylaşımı arttırılmalıdır.
+  - Sprint 3 için sürdürülebilirlik yönlendirmeleri ve kullanıcı arayüzü geliştirmelerine ağırlık verilmelidir.
 
 ---
 
