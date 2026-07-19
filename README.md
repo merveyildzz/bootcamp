@@ -66,26 +66,39 @@ Alınan kararlar: Sanal dolap için veritabanı şemasının (kullanıcı, kıya
 
 # Sprint 2
 
-- **Sprint Notları**: Bu sprintte StyleMind AI'nin temel yapısının geliştirilmesine ve fotoğraftan otomatik kıyafet etiketleme özelliğinin uygulanmasına odaklanılmıştır. Sprint 1'de sayılan prototiplerin ileri seviyelere taşınması, yapay zeka modelinin (Swin Transformer / ResNet) gerçek projeye entegre edilmesi ve kombin önerisi algoritmasının temel mantığının kodlanması hedeflenmiştir. Takım, belirlenen görev dağılımında etkin bir şekilde ilerlemiş ve backend ile frontend arasında iletişim düzeni kurulmuştur.
+- **Sprint Notları**: Bu sprintte StyleMind AI'nin temel yapısının geliştirilmesine ve fotoğraftan otomatik kıyafet tanıma özelliğinin uygulanmasına odaklanılmıştır. Sprint 1'de sayılan prototiplerin ileri seviyelere taşınması, yapay zeka destekli görsel analiz akışının gerçek projeye entegre edilmesi ve kombin önerisi algoritmasının temel mantığının kodlanması hedeflenmiştir. Takım, belirlenen görev dağılımında etkin şekilde ilerlemiş ve backend ile frontend arasında iletişim düzeni kurulmuştur.
 
-- **Sprint içinde tamamlanması tahmin edilen puan**: Sprint 1'de alınan geri bildirimlere göre puan dağılımı yeniden düzenlenmiştir. Backlog'un kalan yarısı Sprint 2 ve Sprint 3'e dengeli şekilde paylaştırılmıştır. Sprint 2 için tahmin edilen puanlar, ekip kapasitesi ve önceki sprint'teki çıktılar dikkate alınarak belirlenmiştir.
+- **Sprint içinde tamamlanması tahmin edilen puan**: Sprint 1'de alınan geri bildirimlere göre puan dağılımı yeniden düzenlenmiştir. Backlog'un kalan yarısı Sprint 2 ve Sprint 3'e dengeli şekilde paylaştırılmıştır. Sprint 2 için tahmin edilen puanlar, ekip kapasitesi ve önceki sprintteki çıktılar dikkate alınarak belirlenmiştir.
 
-- **Puan Tamamlama Mantığı**: Backlog'daki story'ler önceliğe göre yeniden sıralanmıştır. Bağımlılıkları olan task'ler öncelikli olarak ele alınmıştır. Story'ler detaylı şekilde task'lere bölünmüş, her task için tahmin puanları tekrardan değerlendirilmiştir.
+- **Puan Tamamlama Mantığı**: Backlog'daki story'ler önceliğe göre yeniden sıralanmıştır. Bağımlılıkları olan task'ler öncelikli olarak ele alınmıştır. Story'ler detaylı şekilde task'lere bölünmüş, her task için tahmin puanları tekrardan değerlendirilmiştir. AI entegrasyonuna yönelik task'ler daha ayrıntılı şekilde planlanmıştır.
 
-  AI model entegrasyonuna yönelik task'ler daha ayrıntılı şekilde planlanmıştır.
+- **Daily Scrum**: Slack üzerinden yürütülen Daily Scrum'lar düzenli olarak devam etmiştir. Takım üyeleri günlük ilerlemeleri, engelleri ve çıktıları paylaşmıştır.
 
-- **Daily Scrum**: Slack üzerinden yürütülen Daily Scrum'lar düzenli olarak devam etmiştir. Takım üyeleri günlük kütüphaneler, engeller ve çıktıları paylaşmışlardır.
+- **Ürünün Durumu:** 
+Ekran Görüntüleri:
+<img width="436" height="577" alt="sprint2" src="https://github.com/user-attachments/assets/2a3503c0-75a9-4d16-8a87-3e2f34e87170" />
+
+<img width="518" height="586" alt="sprint2_4" src="https://github.com/user-attachments/assets/8bfa1ea4-023b-479b-bd1c-8b6e110b3edf" />
+
+<img width="502" height="574" alt="sprint2_3" src="https://github.com/user-attachments/assets/8ec4cff2-f649-4b8d-b25c-2f48badc6dc8" />
+
+<img width="1276" height="587" alt="sprint2_2" src="https://github.com/user-attachments/assets/577d3362-0433-4d50-9b05-34e0a671940a" />
+
+
 
 - **Sprint Review**:
-Alınan kararlar: Fotoğraftan otomatik kıyafet etiketleme özelliği (kategori, ana renk, mevsim tespiti) başarıyla uygulanmıştır. Doğal dil komutuyla bağlama özel kombin üretimi (AI Stilist) özelliğinin temel altyapısı kurulmuştur. Gerçek zamanlı hava durumuna göre kombin önerisi özelliği tasarlanmış ve kısmi olarak uygulanmıştır. Yıkama, hijyen ve son giyilme tarihi takibi sistemi veritabanında tanımlanmıştır. Kişisel dolap analitiği için gerekli veri toplama mekanizmaları hazırlanmıştır. Sprint Review katılımcıları: Oğuzhan Ünal, Enes Buğra Damar, İrem Damla Dural, Atakan Tatar, Merve Yıldız.
+Alınan kararlar: Fotoğraftan otomatik kıyafet tanıma özelliği, Sprint 1'de planlanan Swin Transformer/ResNet yaklaşımı yerine **Gemini Vision API** kullanılarak hayata geçirilmiştir; kullanıcı kameradan bir kıyafet fotoğrafı yüklediğinde model fotoğrafı analiz edip otomatik bir açıklama (kategori + kıyafet tanımı) üretmektedir. Bu değişimin, sprint kapsamına daha hızlı ve daha az riskle sığdığı değerlendirilmiştir. Doğal dil komutuyla bağlama özel kombin üretimi (AI Stilist) özelliğinin temel altyapısı kurulmuş ve sohbet ekranı üzerinden uçtan uca çalışır hale getirilmiştir; model, öneriyi yalnızca kullanıcının dolabındaki gerçek eşyalarla sınırlandıracak şekilde yapılandırılmıştır. Metin olarak eklenen kıyafetler için otomatik görsel bulma ihtiyacı doğmuş, geçici bir çözüm olarak görsel arama entegrasyonu yapılmıştır; kalıcı ve daha güvenilir bir görsel kaynağının Sprint 3'te değerlendirilmesine karar verilmiştir. Gerçek zamanlı hava durumu entegrasyonu, yıkama/hijyen takibi ve kişisel dolap analitiği özelliklerinin bu sprintin kapsamına alınamayacağı görülmüş, bu PBI'ların Sprint 3'e aktarılmasına karar verilmiştir. Kullanıcı bazlı kimlik doğrulamanın henüz tam olarak kurulmadığı, bunun önümüzdeki sprintte netleştirilmesi gerektiği not edilmiştir. Sprint Review katılımcıları: Oğuzhan Ünal, Enes Buğra Damar, İrem Damla Dural, Atakan Tatar, Merve Yıldız.
 
 - **Sprint Retrospective:**
-  - AI model entegrasyonuyla ilgili teknik zorluklar dokümante edilmiş ve çözüm yolları belirlenmiştir.
-  - Doğal dil işleme (NLP) kütüphanelerinin performansı üzerine çalışılmaya devam edilecektir.
+  - AI entegrasyonuyla (görüntü analizi + kombin sohbeti) ilgili teknik zorluklar dokümante edilmiş ve çözüm yolları belirlenmiştir; bir sonraki sprint planlamasında AI ile ilgili story'lere daha gerçekçi puan verilmesi kararlaştırılmıştır.
+  - Kullanıcı kimlik doğrulama story'sinin ertelenmesi, ileride teknik borç yaratmaması için Sprint 3'ün başına alınmalıdır.
+  - Geçici çözüm olarak kullanılan görsel arama yönteminin kalıcı bir çözümle değiştirilmesi gerektiği not edilmiştir.
   - Frontend ve backend arasındaki API tasarımında iyileştirmeler yapılmalıdır.
-  - Gerçek zamanlı hava durumu API entegrasyonu test edilmelidir.
-  - Takım üyeleri arasında teknik bilgi paylaşımı arttırılmalıdır.
-  - Sprint 3 için sürdürülebilirlik yönlendirmeleri ve kullanıcı arayüzü geliştirmelerine ağırlık verilmelidir.
+  - Takım üyeleri arasında teknik bilgi paylaşımı artırılmalıdır.
+  - Sprint 3 için gerçek zamanlı hava durumu entegrasyonu, sürdürülebilirlik yönlendirmeleri ve kullanıcı arayüzü geliştirmelerine ağırlık verilmelidir.
+
+
+
 
 ---
 
