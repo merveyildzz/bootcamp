@@ -38,3 +38,18 @@ type CachedPrompt struct {
 	CachedResponse string    `gorm:"type:text" json:"cached_response"`
 	ExpiresAt      time.Time `gorm:"type:timestamp;index" json:"expires_at"`
 }
+
+type ChatMessage struct {
+	Role    string `json:"role"`
+	Content string `json:"content"`
+}
+
+// WardrobeItem represents a piece of clothing in the user's virtual wardrobe
+type WardrobeItem struct {
+	ID          string    `gorm:"type:uuid;default:gen_random_uuid();primaryKey" json:"id"`
+	UserID      *uint     `gorm:"index" json:"user_id,omitempty"`
+	Category    string    `gorm:"type:varchar(100);not null" json:"category"` // Üst Giyim, Alt Giyim, Ayakkabı, Dış Giyim, Aksesuar
+	Description string    `gorm:"type:text;not null" json:"description"`      // "Siyah deri ceket", "Beyaz oversize tişört" vb.
+	ImageUrl    string    `gorm:"type:text" json:"image_url,omitempty"`
+	CreatedAt   time.Time `gorm:"type:timestamp" json:"created_at"`
+}

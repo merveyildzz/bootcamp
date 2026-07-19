@@ -28,12 +28,15 @@ func main() {
 
 	// 4. İş katmanını (Service) başlat
 	geminiService := service.NewGeminiService(geminiClient)
+	wardrobeService := service.NewWardrobeService(geminiClient)
 
 	// 5. HTTP Kontrolcülerini başlat
 	geminiController := controllers.NewGeminiController(geminiService)
+	wardrobeController := controllers.NewWardrobeController(wardrobeService)
 
 	// 6. Fiber uygulamasını başlat ve yapılandır
 	app := fiber.New(fiber.Config{
+		BodyLimit: 50 * 1024 * 1024, // 50 MB
 		ErrorHandler: func(ctx *fiber.Ctx, err error) error {
 			code := fiber.StatusInternalServerError
 			if e, ok := err.(*fiber.Error); ok {
@@ -46,7 +49,7 @@ func main() {
 	})
 
 	// Rotaları tanımla
-	routes.SetupRoutes(app, geminiController)
+	routes.SetupRoutes(app, geminiController, wardrobeController)
 
 	// Uygulamayı ayağa kaldır
 	log.Printf("Sunucu port %s üzerinde başlatılıyor...\n", cfg.Port)

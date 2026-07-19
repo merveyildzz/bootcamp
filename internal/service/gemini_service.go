@@ -20,9 +20,25 @@ func NewGeminiService(client *gemini.Client) *GeminiService {
 }
 
 // ProcessPrompt handles the business logic, logging, and interaction with Gemini API
-func (s *GeminiService) ProcessPrompt(ctx context.Context, userInput string) (string, error) {
+func (s *GeminiService) ProcessPrompt(ctx context.Context, userInput string, history []domain.ChatMessage) (string, error) {
 	// Sistem talimatları arka planda tutularak prompt enjeksiyonuna karşı sterilizasyon sağlanır.
-	systemInstruction := "Sen bir moda ve kombin asistanısın. Kullanıcıya kıyafet önerileri sunmalısın."
+	var wardrobeList string
+	var items []domain.WardrobeItem
+	if err := repository.DB.Find(&items).Error; err == nil && len(items) > 0 {
+		for _, item := range items {
+			wardrobeList += "- " + item.Category + ": " + item.Description + " (Resim: " + item.ImageUrl + ")\n"
+		}
+	}
+
+	systemInstruction := `Sen uzman bir moda danışmanısın. Kullanıcıya kıyafet kombinleri öneriyorsun. 
+Kullanıcının Dolabı:
+` + wardrobeList + `
+
+ÖNEMLİ KURALLAR:
+1. SADECE ama SADECE kullanıcının dolabındaki eşyaları kullanarak kombin yap!
+2. Dolapta olmayan hiçbir ayakkabı, çanta, aksesuar veya kıyafeti önerme.
+3. Önerdiğin kombinlerdeki her bir eşyanın görselini de markdown formatında ekle. Örneğin: "![Mavi Kot Pantolon](http://gorsel-linki.com)". Eşyaların resim linkleri yukarıdaki listede 'Resim: ...' olarak verilmiştir. Görselleri mutlaka yan yana veya liste halinde göster ki kombin gözüksün.
+4. Yanıtların kısa, şık ve modern olsun.`
 	
 	start := time.Now()
 	
@@ -31,7 +47,7 @@ func (s *GeminiService) ProcessPrompt(ctx context.Context, userInput string) (st
 	defer cancel()
 
 	// Gemini API çağrısı
-	response, err := s.client.GenerateContent(timeoutCtx, systemInstruction, userInput)
+	response, err := s.client.GenerateContent(timeoutCtx, systemInstruction, userInput, history)
 	
 	latencyMs := int(time.Since(start).Milliseconds())
 	status := "Success"

@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"kombin/internal/domain"
 	"kombin/internal/service"
 
 	"github.com/gofiber/fiber/v2"
@@ -17,7 +18,8 @@ func NewGeminiController(s *service.GeminiService) *GeminiController {
 }
 
 type GenerateRequest struct {
-	Prompt string `json:"prompt"`
+	Prompt  string               `json:"prompt"`
+	History []domain.ChatMessage `json:"history"`
 }
 
 func (c *GeminiController) Generate(ctx *fiber.Ctx) error {
@@ -34,7 +36,7 @@ func (c *GeminiController) Generate(ctx *fiber.Ctx) error {
 		})
 	}
 
-	response, err := c.service.ProcessPrompt(ctx.Context(), req.Prompt)
+	response, err := c.service.ProcessPrompt(ctx.Context(), req.Prompt, req.History)
 	if err != nil {
 		// Sunucu tarafında hata loglanmalı, istemciye ise genel bir mesaj gönderilmelidir.
 		return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{

@@ -43,6 +43,7 @@ func ConnectDB(cfg *config.Config) {
 		&domain.User{},
 		&domain.AiInteractionLog{},
 		&domain.CachedPrompt{},
+		&domain.WardrobeItem{},
 	)
 	if err != nil {
 		log.Fatalf("Veri tabanı migrasyonu başarısız: %v", err)

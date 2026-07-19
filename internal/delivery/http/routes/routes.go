@@ -9,7 +9,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/recover"
 )
 
-func SetupRoutes(app *fiber.App, geminiCtrl *controllers.GeminiController) {
+func SetupRoutes(app *fiber.App, geminiCtrl *controllers.GeminiController, wardrobeCtrl *controllers.WardrobeController) {
 	// Temel Middleware'ler
 	app.Use(cors.New()) // Allow all origins for dev
 	app.Use(recover.New()) // Panic recovery
@@ -28,4 +28,9 @@ func SetupRoutes(app *fiber.App, geminiCtrl *controllers.GeminiController) {
 	// Gemini Rotaları
 	v1.Post("/generate", geminiCtrl.Generate)
 	v1.Get("/logs", geminiCtrl.GetLogs)
+
+	// Wardrobe Rotaları
+	v1.Get("/wardrobe", wardrobeCtrl.GetItems)
+	v1.Post("/wardrobe", wardrobeCtrl.AddItem)
+	v1.Delete("/wardrobe/:id", wardrobeCtrl.DeleteItem)
 }
