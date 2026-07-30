@@ -1,0 +1,28 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: docker/backend.Dockerfile
+    environment:
+      DATABASE_PATH: data/style_mind.db
+      JWT_SECRET_KEY: "${JWT_SECRET_KEY:-dev-secret-change-this-before-real-use}"
+      CORS_ORIGINS: "http://localhost:5173"
+      UPLOAD_DIR: uploads
+      GEMINI_API_KEY: "${GEMINI_API_KEY:-}"
+      GEMINI_MODEL: "${GEMINI_MODEL:-gemini-3.1-flash-lite}"
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/uploads:/app/uploads
+      - ./backend/data:/app/data
+
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend.Dockerfile
+    depends_on:
+      - backend
+    environment:
+      VITE_API_BASE_URL: "http://localhost:8000"
+    ports:
+      - "5173:5173"

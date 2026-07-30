@@ -1,0 +1,27 @@
+# Build context is the repo root (docker-compose.yml uses `context: .` for both
+# backend and frontend builds) — this single file replaces what would otherwise
+# be two separate per-app .dockerignore files.
+.git/
+.claude/
+docs/
+
+node_modules/
+frontend/dist/
+frontend/.vite/
+
+backend/venv/
+backend/.venv/
+**/__pycache__/
+*.pyc
+backend/.pytest_cache/
+backend/.ruff_cache/
+backend/uploads/*
+!backend/uploads/.gitkeep
+backend/data/
+
+.env
+backend/.env
+frontend/.env
+
+*.md
+*.log

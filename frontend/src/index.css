@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Airy, light-first premium palette (Apple/Notion/Linear inspired) */
+  --color-base: #f7f7f8;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f1f1f4;
+  --color-card: #ffffff;
+  --color-border: #e7e7eb;
+  --color-border-hover: #d6d6dd;
+
+  --color-text: #1c1c1f;
+  --color-text-muted: #6b6b76;
+  --color-text-subtle: #9a9aa3;
+
+  --color-accent: #5b4fe0;
+  --color-accent-hover: #4c3fd1;
+  --color-accent-muted: rgba(91, 79, 224, 0.08);
+
+  --color-success: #16a34a;
+  --color-warning: #d97706;
+  --color-danger: #dc2626;
+
+  /* Soft, diffuse elevation instead of harsh default shadows — reads as premium/floating */
+  --shadow-soft: 0 1px 2px 0 rgba(16, 24, 40, 0.03), 0 4px 16px -2px rgba(16, 24, 40, 0.06);
+  --shadow-soft-lg: 0 2px 4px 0 rgba(16, 24, 40, 0.04), 0 16px 40px -8px rgba(16, 24, 40, 0.12);
+
+  --animate-fade-in: fade-in 0.2s ease-out;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  background: var(--color-base);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100svh;
+}
+
+* {
+  scrollbar-color: var(--color-border-hover) transparent;
+  scrollbar-width: thin;
+}
