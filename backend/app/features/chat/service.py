@@ -31,7 +31,9 @@ def _first_name(user: User) -> str:
     return user.full_name.split(" ")[0]
 
 
-def _greeting_message(db: Session, user: User) -> str:
+def _fallback_greeting_message(db: Session, user: User) -> str:
+    """Used when Gemini is unavailable (no/invalid API key, network error) — keeps the
+    app usable without AI, see gemini_client.get_opening_message for the normal path."""
     first_name = _first_name(user)
     item_count = len(wardrobe_service.list_items(db, user.id))
 
@@ -43,9 +45,17 @@ def _greeting_message(db: Session, user: User) -> str:
         )
     return (
         f"Merhaba {first_name}! Ben senin kişisel stil asistanınım 👋 Dolabında {item_count} parça var. "
-        "Bugün ne giymek istediğini, hangi etkinliğe hazırlandığını ya da tarzınla ilgili aklına ne gelirse "
-        "yazabilirsin, sana en uygun kombini birlikte bulalım."
+        "Bugün ne yapıyorsun, nasıl geçiyor günün? Sohbet ede ede senin için en uygun kombini birlikte "
+        "bulalım."
     )
+
+
+def _opening_message(db: Session, user: User) -> str:
+    try:
+        return gemini_client.get_opening_message(_first_name(user), _wardrobe_context(db, user.id))
+    except Exception:
+        logger.exception("Gemini opening message failed")
+        return _fallback_greeting_message(db, user)
 
 
 def create_conversation(db: Session, user: User) -> Conversation:
@@ -53,7 +63,7 @@ def create_conversation(db: Session, user: User) -> Conversation:
     db.add(conversation)
     db.flush()
 
-    db.add(ChatMessage(conversation_id=conversation.id, role="assistant", content=_greeting_message(db, user)))
+    db.add(ChatMessage(conversation_id=conversation.id, role="assistant", content=_opening_message(db, user)))
     db.commit()
     db.refresh(conversation)
     return conversation
@@ -118,6 +128,8 @@ def _wardrobe_context(db: Session, user_id: int) -> str:
             details.append(item.fabric)
         if item.brand:
             details.append(f"marka {item.brand}")
+        details.append(f"{item.wear_count} kez giyildi")
+        details.append(f"son giyilme: {item.last_worn_date.isoformat()}" if item.last_worn_date else "hiç giyilmedi")
         lines.append(f"- item_id={item.id}: {', '.join(details)}")
     return "\n".join(lines)
 

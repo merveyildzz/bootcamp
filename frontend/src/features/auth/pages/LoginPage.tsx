@@ -28,8 +28,8 @@ export default function LoginPage() {
   return (
     <div className="flex flex-col gap-6">
       <div className="space-y-1 text-center">
-        <h1 className="text-xl font-semibold text-text">Tekrar hoş geldiniz</h1>
-        <p className="text-sm text-text-muted">Gardırobunuza ve stil önerilerinize devam edin.</p>
+        <h1 className="text-xl font-semibold text-text">Giriş Yap</h1>
+        <p className="text-sm text-text-muted">Gardırobunuza ve stil önerilerinize erişmek için giriş yapın.</p>
       </div>
       <LoginForm onSubmit={handleSubmit} isSubmitting={isSubmitting} formError={formError} />
       <p className="text-center text-sm text-text-muted">

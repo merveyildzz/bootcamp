@@ -52,6 +52,16 @@ class ClothingItemNotFoundError(AppError):
     detail = "Kıyafet bulunamadı"
 
 
+class EventNotFoundError(AppError):
+    status_code = status.HTTP_404_NOT_FOUND
+    detail = "Etkinlik bulunamadı"
+
+
+class OutfitNotFoundError(AppError):
+    status_code = status.HTTP_404_NOT_FOUND
+    detail = "Kombin bulunamadı"
+
+
 class InvalidWeatherRequestError(AppError):
     status_code = status.HTTP_400_BAD_REQUEST
     detail = "Konum koordinatları (lat, lon) veya bir şehir adı belirtilmeli"

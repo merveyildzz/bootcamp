@@ -13,6 +13,7 @@ const ProfilePage = lazy(() => import("@/features/auth/pages/ProfilePage"));
 const DashboardPage = lazy(() => import("@/features/dashboard/pages/DashboardPage"));
 const WardrobePage = lazy(() => import("@/features/wardrobe/pages/WardrobePage"));
 const ChatPage = lazy(() => import("@/features/chat/pages/ChatPage"));
+const OutfitsPage = lazy(() => import("@/features/outfits/pages/OutfitsPage"));
 const EventsPage = lazy(() => import("@/features/events/pages/EventsPage"));
 const StatsPage = lazy(() => import("@/features/stats/pages/StatsPage"));
 const NotFoundPage = lazy(() => import("@/pages/NotFoundPage"));
@@ -52,6 +53,7 @@ export const router = createBrowserRouter([
       { path: "/dashboard", element: withSuspense(<DashboardPage />) },
       { path: "/wardrobe", element: withSuspense(<WardrobePage />) },
       { path: "/chat", element: withSuspense(<ChatPage />) },
+      { path: "/outfits", element: withSuspense(<OutfitsPage />) },
       { path: "/events", element: withSuspense(<EventsPage />) },
       { path: "/stats", element: withSuspense(<StatsPage />) },
       { path: "/profile", element: withSuspense(<ProfilePage />) },

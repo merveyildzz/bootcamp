@@ -21,24 +21,24 @@ export function ConversationSidebar({
   isCreating,
 }: ConversationSidebarProps) {
   return (
-    <div className="flex w-64 flex-col gap-3 border-r border-border pr-4">
-      <Button size="sm" onClick={onCreate} isLoading={isCreating}>
+    <div className="flex shrink-0 flex-col gap-3 lg:w-64 lg:border-r lg:border-border lg:pr-4">
+      <Button size="sm" onClick={onCreate} isLoading={isCreating} className="shrink-0">
         <Plus size={16} />
         Yeni Sohbet
       </Button>
 
-      <div className="flex flex-col gap-1 overflow-y-auto">
+      <div className="flex gap-1 overflow-x-auto lg:flex-col lg:overflow-y-auto lg:overflow-x-visible">
         {conversations.map((conversation) => (
           <div
             key={conversation.id}
             className={cn(
-              "group flex items-center gap-2 rounded-lg px-3 py-2 text-sm cursor-pointer",
+              "group flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-sm cursor-pointer lg:shrink",
               conversation.id === activeId ? "bg-accent-muted text-accent" : "text-text-muted hover:bg-surface-hover",
             )}
             onClick={() => onSelect(conversation.id)}
           >
             <MessageCircle size={14} className="shrink-0" />
-            <span className="flex-1 truncate">{conversation.title ?? "Yeni Sohbet"}</span>
+            <span className="max-w-40 truncate lg:max-w-none lg:flex-1">{conversation.title ?? "Yeni Sohbet"}</span>
             <button
               type="button"
               aria-label="Sohbeti sil"

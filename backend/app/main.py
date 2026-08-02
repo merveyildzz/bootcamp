@@ -9,6 +9,7 @@ from app.core.config import settings
 from app.features.auth.router import router as auth_router
 from app.features.chat.router import router as chat_router
 from app.features.events.router import router as events_router
+from app.features.outfits.router import router as outfits_router
 from app.features.stats.router import router as stats_router
 from app.features.wardrobe.image_utils import cleanup_stale_staging_files
 from app.features.wardrobe.router import router as wardrobe_router
@@ -40,6 +41,7 @@ app.include_router(wardrobe_router)
 app.include_router(weather_router)
 app.include_router(chat_router)
 app.include_router(events_router)
+app.include_router(outfits_router)
 app.include_router(stats_router)
 
 

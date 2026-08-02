@@ -47,6 +47,11 @@ export function useMarkWorn() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (id: number) => wardrobeApi.markWorn(id),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: itemsKey }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: itemsKey });
+      // wear_count/last_worn_date feed directly into the stats page's usage rate and
+      // color/top-item breakdowns — without this it'd show stale numbers there.
+      queryClient.invalidateQueries({ queryKey: ["stats", "overview"] });
+    },
   });
 }

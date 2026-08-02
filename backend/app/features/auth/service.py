@@ -39,6 +39,35 @@ def authenticate_user(db: Session, email: str, password: str) -> User:
     return user
 
 
+def update_profile(db: Session, user: User, full_name: str) -> User:
+    user.full_name = full_name
+    db.commit()
+    db.refresh(user)
+    return user
+
+
+def change_email(db: Session, user: User, new_email: str) -> User:
+    new_email = new_email.lower()
+    existing = db.scalar(select(User).where(User.email == new_email))
+    if existing is not None and existing.id != user.id:
+        raise EmailAlreadyRegisteredError()
+
+    user.email = new_email
+    db.commit()
+    db.refresh(user)
+    return user
+
+
+def change_password(db: Session, user: User, current_password: str, new_password: str) -> User:
+    if not verify_password(current_password, user.hashed_password):
+        raise InvalidCredentialsError()
+
+    user.hashed_password = hash_password(new_password)
+    db.commit()
+    db.refresh(user)
+    return user
+
+
 def issue_token_pair(db: Session, user: User) -> tuple[str, str]:
     """Returns (access_token, raw_refresh_token). The raw refresh token is only ever
     returned here to be set as an httpOnly cookie by the router — never persisted as-is."""

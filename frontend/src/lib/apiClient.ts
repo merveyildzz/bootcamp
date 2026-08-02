@@ -1,8 +1,12 @@
 import axios, { AxiosError, type InternalAxiosRequestConfig } from "axios";
 import { useAuthStore } from "@/features/auth/store/authStore";
 
+// Falls back to the default native-dev backend port so `npm run dev` works without
+// requiring a frontend/.env file (VITE_API_BASE_URL is only set explicitly in Docker).
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
+
 export const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
+  baseURL: API_BASE_URL,
   withCredentials: true, // sends the httpOnly refresh cookie on every request
 });
 
@@ -27,11 +31,7 @@ let refreshPromise: Promise<string | null> | null = null;
 function refreshAccessToken(): Promise<string | null> {
   refreshPromise ??= (async () => {
     try {
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_API_BASE_URL}/auth/refresh`,
-        {},
-        { withCredentials: true },
-      );
+      const { data } = await axios.post(`${API_BASE_URL}/auth/refresh`, {}, { withCredentials: true });
       useAuthStore.getState().setSession(data.user, data.access_token);
       return data.access_token as string;
     } catch {

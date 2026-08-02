@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { LayoutDashboard, Shirt, MessageCircle, CalendarDays, BarChart3, LogOut, Sparkles } from "lucide-react";
+import { LayoutDashboard, Shirt, MessageCircle, Layers, CalendarDays, BarChart3, LogOut, Sparkles, X } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { useAuthStore } from "@/features/auth/store/authStore";
 import { useLogout } from "@/features/auth/hooks/useLogout";
@@ -9,19 +9,41 @@ const navItems = [
   { to: "/dashboard", label: "Panel", icon: LayoutDashboard },
   { to: "/wardrobe", label: "Gardırop", icon: Shirt },
   { to: "/chat", label: "AI Sohbet", icon: MessageCircle },
+  { to: "/outfits", label: "Kombinlerim", icon: Layers },
   { to: "/events", label: "Etkinlikler", icon: CalendarDays },
   { to: "/stats", label: "İstatistikler", icon: BarChart3 },
 ];
 
-export function Sidebar() {
+interface SidebarProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export function Sidebar({ isOpen, onClose }: SidebarProps) {
   const user = useAuthStore((s) => s.user);
   const logout = useLogout();
 
   return (
-    <aside className="flex h-svh w-64 shrink-0 flex-col border-r border-border bg-surface px-4 py-6">
-      <div className="mb-8 flex items-center gap-2 px-2">
-        <Sparkles className="text-accent" size={20} />
-        <span className="text-base font-semibold tracking-tight text-text">Style Mind</span>
+    <aside
+      className={cn(
+        "fixed inset-y-0 left-0 z-40 flex h-svh w-64 shrink-0 flex-col border-r border-border bg-surface px-4 py-6",
+        "transition-transform duration-200 ease-out",
+        isOpen ? "translate-x-0" : "-translate-x-full",
+        "lg:static lg:translate-x-0",
+      )}
+    >
+      <div className="mb-8 flex items-center justify-between px-2">
+        <div className="flex items-center gap-2">
+          <Sparkles className="text-accent" size={20} />
+          <span className="text-base font-semibold tracking-tight text-text">Style Mind</span>
+        </div>
+        <button
+          onClick={onClose}
+          aria-label="Menüyü kapat"
+          className="rounded-lg p-1.5 text-text-muted transition-colors hover:bg-surface-hover hover:text-text lg:hidden"
+        >
+          <X size={18} />
+        </button>
       </div>
 
       <nav className="flex flex-1 flex-col gap-1">
@@ -29,6 +51,7 @@ export function Sidebar() {
           <NavLink
             key={to}
             to={to}
+            onClick={onClose}
             className={({ isActive }) =>
               cn(
                 "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors duration-150",
@@ -47,6 +70,7 @@ export function Sidebar() {
       <div className="flex flex-col gap-2 border-t border-border pt-4">
         <NavLink
           to="/profile"
+          onClick={onClose}
           className={({ isActive }) =>
             cn(
               "flex items-center gap-3 rounded-lg px-2 py-2 text-sm transition-colors duration-150",

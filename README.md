@@ -51,6 +51,6 @@ her kurulumda kendi bilgisayarında kalır, koddan ayrı taşınır.
 - [x] Faz 2 — Dijital Gardırop
 - [x] Faz 3 — Hava durumu + Dashboard
 - [x] Faz 4 — AI Chat + kombin önerisi
-- [ ] Faz 5 — Etkinlik planlama
-- [ ] Faz 6 — Kombin geçmişi + favoriler
-- [ ] Faz 7 — İstatistikler
+- [x] Faz 5 — Etkinlik planlama
+- [x] Faz 6 — Kombin geçmişi + favoriler
+- [x] Faz 7 — İstatistikler

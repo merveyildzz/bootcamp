@@ -9,8 +9,11 @@ from app.core.security import decode_token
 from app.features.auth import service
 from app.features.auth.schemas import (
     AccessTokenResponse,
+    ChangeEmailRequest,
+    ChangePasswordRequest,
     LoginRequest,
     RegisterRequest,
+    UpdateProfileRequest,
     UserPublic,
 )
 from app.models.user import User
@@ -98,3 +101,38 @@ def logout(
 @router.get("/me", response_model=UserPublic)
 def me(current_user: User = Depends(get_current_user)):
     return UserPublic.model_validate(current_user)
+
+
+@router.patch("/me", response_model=UserPublic)
+def update_profile(
+    payload: UpdateProfileRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    user = service.update_profile(db, current_user, payload.full_name)
+    return UserPublic.model_validate(user)
+
+
+@router.post("/me/email", response_model=UserPublic)
+def change_email(
+    payload: ChangeEmailRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    try:
+        user = service.change_email(db, current_user, payload.new_email)
+    except AppError as exc:
+        raise exc.to_http_exception()
+    return UserPublic.model_validate(user)
+
+
+@router.post("/me/password", status_code=status.HTTP_204_NO_CONTENT)
+def change_password(
+    payload: ChangePasswordRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    try:
+        service.change_password(db, current_user, payload.current_password, payload.new_password)
+    except AppError as exc:
+        raise exc.to_http_exception()

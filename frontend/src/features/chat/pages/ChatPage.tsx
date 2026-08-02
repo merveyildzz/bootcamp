@@ -64,7 +64,7 @@ export default function ChatPage() {
   }
 
   return (
-    <div className="flex h-[calc(100svh-4rem)] gap-4">
+    <div className="flex h-[calc(100svh-4rem)] flex-col gap-4 lg:flex-row">
       <ConversationSidebar
         conversations={conversations}
         activeId={activeId}

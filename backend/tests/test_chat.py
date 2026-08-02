@@ -9,11 +9,21 @@ from app.features.chat.gemini_client import ChatReply, SuggestedOutfitItem
 from tests.conftest import register_and_get_headers
 
 GEMINI_CHAT_PATCH_TARGET = "app.features.chat.service.gemini_client.get_chat_reply"
+GEMINI_OPENING_PATCH_TARGET = "app.features.chat.service.gemini_client.get_opening_message"
 
 
 @pytest.fixture(autouse=True)
 def _isolate_uploads(tmp_path, monkeypatch):
     monkeypatch.setattr(settings, "upload_dir", str(tmp_path))
+
+
+@pytest.fixture(autouse=True)
+def _mock_opening_message():
+    # Every conversation creation triggers an opening-message call — mock it by default so
+    # tests never hit the real Gemini API; tests that care about the exact wiring override
+    # this per-test (see test_create_conversation_includes_personalized_greeting and friends).
+    with patch(GEMINI_OPENING_PATCH_TARGET, return_value="Merhaba! Bugün nasılsın?") as mock:
+        yield mock
 
 
 def _tiny_jpeg_bytes() -> bytes:
@@ -51,7 +61,7 @@ def test_create_and_list_conversations(client):
     assert len(response.json()) == 2
 
 
-def test_create_conversation_includes_personalized_greeting(client):
+def test_create_conversation_greeting_is_personalized(client, _mock_opening_message):
     headers = register_and_get_headers(client)
     _create_wardrobe_item(client, headers)
     conversation = _create_conversation(client, headers)
@@ -59,13 +69,27 @@ def test_create_conversation_includes_personalized_greeting(client):
     messages = client.get(f"/chat/conversations/{conversation['id']}/messages", headers=headers).json()
     assert len(messages) == 1
     assert messages[0]["role"] == "assistant"
-    assert "Test" in messages[0]["content"]
-    assert "1 parça" in messages[0]["content"]
+    assert messages[0]["content"] == "Merhaba! Bugün nasılsın?"
+
+    # The opening message is generated from the user's name + live wardrobe context, not a
+    # hardcoded template — check the AI was actually given that personalization data.
+    name, wardrobe_context = _mock_opening_message.call_args.args
+    assert name == "Test"
+    assert "tişört" in wardrobe_context
 
 
-def test_create_conversation_greeting_mentions_empty_wardrobe(client):
+def test_create_conversation_greeting_context_mentions_empty_wardrobe(client, _mock_opening_message):
     headers = register_and_get_headers(client)
-    conversation = _create_conversation(client, headers)
+    _create_conversation(client, headers)
+
+    _, wardrobe_context = _mock_opening_message.call_args.args
+    assert "boş" in wardrobe_context
+
+
+def test_create_conversation_greeting_falls_back_when_gemini_unavailable(client):
+    headers = register_and_get_headers(client)
+    with patch(GEMINI_OPENING_PATCH_TARGET, side_effect=RuntimeError("no api key")):
+        conversation = _create_conversation(client, headers)
 
     messages = client.get(f"/chat/conversations/{conversation['id']}/messages", headers=headers).json()
     assert len(messages) == 1

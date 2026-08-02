@@ -11,7 +11,9 @@ def get_weather_for_coordinates(latitude: float, longitude: float) -> CurrentWea
     except httpx.HTTPError as exc:
         raise WeatherServiceUnavailableError() from exc
 
-    return CurrentWeather(temperature=temperature, condition=client.describe_weather_code(weather_code), weather_code=weather_code)
+    return CurrentWeather(
+        temperature=temperature, condition=client.describe_weather_code(weather_code), weather_code=weather_code
+    )
 
 
 def get_weather_for_city(city: str) -> CurrentWeather:
