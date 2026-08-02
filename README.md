@@ -114,31 +114,21 @@ Alınan kararlar: Fotoğraftan otomatik kıyafet tanıma özelliği, Sprint 1'de
 - **Ürünün Durumu:**
 Ekran Görüntüleri:
 
-<!-- Giriş ekranı -->
-<!-- Ekran görüntüsünü buraya ekle -->
+<img width="800" alt="giris-ekrani" src="docs/sprint3/01-login.png" />
 
-<!-- Panel (Dashboard): hava durumu, dolaptaki kıyafet sayısı, yaklaşan etkinlikler, son kullanılan kombin, AI önerileri -->
-<!-- Ekran görüntüsünü buraya ekle -->
+<img width="800" alt="panel" src="docs/sprint3/02-dashboard.png" />
 
-<!-- Dijital Gardırop: kıyafet listesi, kategori/mevsim/renk filtreleri -->
-<!-- Ekran görüntüsünü buraya ekle -->
+<img width="800" alt="dijital-gardirop" src="docs/sprint3/03-wardrobe.png" />
 
-<!-- AI Sohbet: gardırop ve etkinliklere göre kombin önerisi -->
-<!-- Ekran görüntüsünü buraya ekle -->
+<img width="800" alt="ai-sohbet" src="docs/sprint3/04-chat.png" />
 
-<!-- Kombinlerim: geçmiş kombinler ve favoriler -->
-<!-- Ekran görüntüsünü buraya ekle -->
+<img width="800" alt="kombinlerim" src="docs/sprint3/05-outfits.png" />
 
-<!-- Etkinlikler: liste görünümü -->
-<!-- Ekran görüntüsünü buraya ekle -->
+<img width="800" alt="etkinlikler" src="docs/sprint3/06-events.png" />
 
-<!-- İstatistikler: toplam kıyafet, kullanım oranı, renk dağılımı, son 6 ayda oluşturulan kombin sayısı, en çok giyilenler, akıllı öneriler -->
-<!-- Ekran görüntüsünü buraya ekle -->
+<img width="800" alt="istatistikler" src="docs/sprint3/07-stats.png" />
 
-<!-- Profil: ad/soyad, e-posta ve şifre güncelleme -->
-<!-- Ekran görüntüsünü buraya ekle -->
-
-> Not: Yukarıdaki görselleri GitHub üzerinde bu README'yi düzenlerken (veya bir issue/PR yorum kutusuna) sürükle-bırak yaparsan GitHub otomatik olarak `https://github.com/user-attachments/assets/...` linki üretir; o zaman ilgili `<!-- ... -->` satırını Sprint 2'dekiyle aynı formatta bir `<img>` etiketiyle değiştirebilirsin.
+<img width="800" alt="profil" src="docs/sprint3/08-profile.png" />
 
 - **Sprint Review**:
 Alınan kararlar: Kullanıcı kimlik doğrulaması (JWT ile kayıt/giriş) tamamlanmış ve Sprint 2'den kalan teknik borç kapatılmıştır. Gerçek zamanlı hava durumu entegrasyonu Open-Meteo ile (API key gerektirmeden) hayata geçirilmiş, konum izni veya manuel şehir girişiyle çalışacak şekilde tasarlanmıştır. Backlog'da planlanan etkinlik planlama (iş görüşmesi, düğün, toplantı vb. etkinlik tipleri, liste/takvim görünümü), kombin geçmişi + favoriler (AI Sohbet'in önerdiği kombinlerin kaydedilip favorilenebilmesi) ve kişisel dolap analitiği (toplam kıyafet, kullanım oranı, renk dağılımı, en çok giyilenler, akıllı öneriler) özellikleri de bu sprintte tamamlanarak ürüne eklenmiştir. Profil sayfasına ad/soyad, e-posta ve şifre güncelleme formları eklenmiştir. AI Stilist, önerilerini artık kullanıcının yaklaşan etkinliklerini de dikkate alarak üretmektedir. Sprint Review katılımcıları: Oğuzhan Ünal, Enes Buğra Damar, İrem Damla Dural, Atakan Tatar, Merve Yıldız.
