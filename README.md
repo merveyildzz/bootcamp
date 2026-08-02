@@ -114,8 +114,6 @@ Alınan kararlar: Fotoğraftan otomatik kıyafet tanıma özelliği, Sprint 1'de
 - **Ürünün Durumu:**
 Ekran Görüntüleri:
 
-<img width="800" alt="giris-ekrani" src="docs/sprint3/01-login.png" />
-
 <img width="800" alt="panel" src="docs/sprint3/02-dashboard.png" />
 
 <img width="800" alt="dijital-gardirop" src="docs/sprint3/03-wardrobe.png" />
